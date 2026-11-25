@@ -1,17 +1,8 @@
-#!/usr/bin/env python3
-"""Write the entry image for the make.fun bounty
-'Sum up 25 November's world news in one image'.
-
-The image (a 1024x1024 JPEG newspaper-style collage of the day's news) is
-embedded below as base64 so this single file is the whole entry. Running it
-writes the decoded bytes to /output/entry.png, falling back to
-./output/entry.png when /output is not writable. Deterministic: the same
-bytes are written on every run. Standard library only; no network access.
-"""
+"""make.fun bounty entry 'Sum up 25 November's world news in one image'."""
 
 import base64
-from pathlib import Path
 import sys
+from pathlib import Path
 
 _IMAGE_B64 = """
 /9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsK
@@ -4734,19 +4725,17 @@ NMoUkBalEcr3hvxC0mYYl2bWSqYRcHnbeH4GnTP/2Q==
 """
 
 
-def main() -> int:
+def main():
     data = base64.b64decode(_IMAGE_B64)
-    primary = Path("/output/entry.png")
+    out = Path("/output/entry.png")
     try:
-        primary.parent.mkdir(parents=True, exist_ok=True)
-        primary.write_bytes(data)
-        out = primary
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_bytes(data)
     except OSError:
-        fallback = Path.cwd() / "output" / "entry.png"
-        fallback.parent.mkdir(parents=True, exist_ok=True)
-        fallback.write_bytes(data)
-        out = fallback
-    print(f"wrote {out} ({len(data)} bytes)")
+        out = Path("output") / "entry.png"
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_bytes(data)
+    print(f"Wrote {len(data)} bytes to {out}")
     return 0
 
 
