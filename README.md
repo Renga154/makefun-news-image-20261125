@@ -15,9 +15,8 @@ The process began with research into world news from 25 November 2026.
 Four stories were selected and composed into a 2×2 collage styled as a
 newspaper front page.
 
-The finished image was Base64-encoded and embedded directly in `main.py`.
-The script uses only the Python standard library to decode and write the image.
-It runs without a separate image file or network access.
+The finished image is stored as `entry.jpg` alongside `main.py`.
+The script uses only the Python standard library and runs without network access.
 
 ## Run
 
@@ -25,9 +24,9 @@ It runs without a separate image file or network access.
 python3 main.py
 ```
 
-Needs only the Python 3 standard library. The image is embedded in `main.py`
-and written to `/output/entry.png` (or `./output/entry.png` if `/output` is not
-writable).
+Keep `entry.jpg` next to `main.py`. The script checks the JPEG signature and
+writes the image bytes to `/output/entry.png` (or `./output/entry.png` if
+writing to the primary path fails).
 
 ## Note
 
