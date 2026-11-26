@@ -1,6 +1,7 @@
 """make.fun bounty entry 'Sum up 25 November's world news in one image'."""
 
 import base64
+import hashlib
 import sys
 from pathlib import Path
 
@@ -4735,7 +4736,11 @@ def main():
         out = Path("output") / "entry.png"
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_bytes(data)
-    print(f"Wrote {len(data)} bytes to {out}")
+    if not data.startswith(b"\xff\xd8"):
+        print(f"JPEG signature check failed for {out}", file=sys.stderr)
+        return 1
+    digest = hashlib.sha256(data).hexdigest()[:12]
+    print(f"Wrote {len(data)} bytes to {out} (SHA-256 {digest})")
     return 0
 
 

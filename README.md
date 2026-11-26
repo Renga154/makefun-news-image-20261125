@@ -9,6 +9,16 @@ One image summing up four of the day's stories:
 3. **Asia markets plunge on AI doubts**: KOSPI -6.2%, Nikkei -2.8%
 4. **US unveils new tariffs on 14 partners**
 
+## How it was made
+
+The process began with research into world news from 25 November 2026.
+Four stories were selected and composed into a 2×2 collage styled as a
+newspaper front page.
+
+The finished image was Base64-encoded and embedded directly in `main.py`.
+The script uses only the Python standard library to decode and write the image.
+It runs without a separate image file or network access.
+
 ## Run
 
 ```
